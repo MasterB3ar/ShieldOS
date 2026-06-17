@@ -87,12 +87,14 @@ in {
 
   services.resolved = {
     enable = true;
-    extraConfig = ''
-      DNSOverTLS=yes
-      DNSSEC=allow-downgrade
-      LLMNR=no
-      MulticastDNS=no
-    '';
+    settings = {
+      Resolve = {
+        DNSOverTLS = "yes";
+        DNSSEC = "allow-downgrade";
+        LLMNR = "no";
+        MulticastDNS = "no";
+      };
+    };
   };
 
   services.journald.extraConfig = ''
