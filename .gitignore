@@ -1,0 +1,24 @@
+# Nix build outputs
+result
+result-*
+*.drv
+
+# ISO / VM images
+*.iso
+*.img
+*.qcow2
+*.vdi
+*.vmdk
+
+# Local environment
+.env
+.env.*
+.direnv/
+.cache/
+
+# Editor / OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.tmp
