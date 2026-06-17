@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="42%" r="75%">
+      <stop offset="0" stop-color="#2563eb" stop-opacity="0.95"/>
+      <stop offset="0.42" stop-color="#111827"/>
+      <stop offset="1" stop-color="#020617"/>
+    </radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="50"/></filter>
+  </defs>
+  <rect width="3840" height="2160" fill="url(#g)"/>
+  <circle cx="960" cy="460" r="330" fill="#38bdf8" opacity="0.15" filter="url(#blur)"/>
+  <circle cx="2860" cy="1720" r="420" fill="#22c55e" opacity="0.10" filter="url(#blur)"/>
+  <path d="M1920 520 L2380 700 L2285 1320 C2240 1610 2070 1775 1920 1850 C1770 1775 1600 1610 1555 1320 L1460 700 Z" fill="none" stroke="#dbeafe" stroke-width="18" opacity="0.8"/>
+  <path d="M1920 685 L2195 795 L2138 1260 C2104 1478 2002 1588 1920 1644 C1838 1588 1736 1478 1702 1260 L1645 795 Z" fill="#0f172a" opacity="0.45" stroke="#93c5fd" stroke-width="10"/>
+  <text x="1920" y="1065" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="128" font-weight="700" text-anchor="middle">ShieldOS</text>
+  <text x="1920" y="1160" fill="#bfdbfe" font-family="Inter, Arial, sans-serif" font-size="44" text-anchor="middle">A computer that belongs to you</text>
+</svg>
