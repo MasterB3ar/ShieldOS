@@ -1,0 +1,51 @@
+name: Build ShieldOS VM ISO
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-iso:
+    name: Build bootable ISO
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+            max-jobs = auto
+            cores = 0
+
+      - name: Show system info
+        run: |
+          nix --version
+          df -h
+
+      - name: Check flake syntax
+        run: nix flake check --show-trace -L
+
+      - name: Build live ISO
+        run: |
+          nix build .#nixosConfigurations.shieldos-iso.config.system.build.isoImage --show-trace -L
+          mkdir -p dist
+          cp -v result/iso/*.iso dist/
+          ls -lh dist
+
+      - name: Upload ISO artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ShieldOS-VM-ISO
+          path: dist/*.iso
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
