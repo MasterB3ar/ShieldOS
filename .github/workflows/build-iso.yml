@@ -1,4 +1,4 @@
-name: Build ShieldOS VM ISO
+name: Build ShieldOS Daily Driver VM ISO
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   build-iso:
-    name: Build bootable ISO
+    name: Build bootable daily-driver ISO
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -34,7 +34,7 @@ jobs:
       - name: Check flake syntax
         run: nix flake check --show-trace -L
 
-      - name: Build live ISO
+      - name: Build live/install ISO
         run: |
           nix build .#nixosConfigurations.shieldos-iso.config.system.build.isoImage --show-trace -L
           mkdir -p dist
@@ -44,7 +44,7 @@ jobs:
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ShieldOS-VM-ISO
+          name: ShieldOS-Daily-Driver-VM-ISO
           path: dist/*.iso
           if-no-files-found: error
           retention-days: 14
