@@ -6,7 +6,10 @@
     ../../modules/base.nix
     ../../modules/desktop-plasma.nix
     ../../modules/privacy.nix
+    ../../modules/app-support.nix
+    ../../modules/gaming.nix
     ../../modules/developer.nix
+    ../../modules/installer.nix
     ../../modules/shield-center.nix
   ];
 
@@ -15,10 +18,13 @@
 
   networking.hostName = "shieldos";
 
-  isoImage.isoName = "ShieldOS-VM-Developer-Preview-x86_64.iso";
+  image.fileName = "ShieldOS-0.2-Daily-Driver-VM-x86_64.iso";
   isoImage.volumeID = "SHIELDOS";
   isoImage.squashfsCompression = "zstd -Xcompression-level 6";
-  isoImage.appendToMenuLabel = " ShieldOS VM Developer Preview";
+  isoImage.appendToMenuLabel = " ShieldOS 0.2 Daily Driver VM";
+
+  # Avoid the NixOS 26.05 ZFS safety warning and future-default mismatch.
+  boot.zfs.forceImportRoot = false;
 
   # Demo/live user. Change/remove this before publishing a public ISO.
   users.users.shield = {
@@ -43,8 +49,8 @@
 
   environment.etc."shieldos-release".text = ''
     NAME=ShieldOS
-    VERSION="VM Developer Preview 0.1"
+    VERSION="0.2 Daily Driver VM"
     BASE="NixOS 26.05"
-    PRIVACY_DEFAULT="strict-but-usable"
+    PRIVACY_DEFAULT="normal-private"
   '';
 }

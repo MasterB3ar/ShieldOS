@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let
-  optionalPkg = name: lib.optional (builtins.hasAttr name pkgs) (builtins.getAttr name pkgs);
-in {
+{
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
@@ -26,11 +24,7 @@ in {
     lazygit
     direnv
     nil
-  ]
-  ++ optionalPkg "rustup"
-  ++ optionalPkg "nixfmt-rfc-style"
-  ++ optionalPkg "podman-compose"
-  ++ optionalPkg "docker-compose";
+  ];
 
   programs.direnv = {
     enable = true;

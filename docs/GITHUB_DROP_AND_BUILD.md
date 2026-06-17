@@ -1,58 +1,56 @@
 # GitHub drop-and-build guide
 
-## Upload
+## 1. Create the repo
 
-1. Go to GitHub.
-2. Create a new empty repository called `ShieldOS`.
-3. Do not add a README, license, or `.gitignore` on GitHub. This project already contains them.
-4. Open the new repository.
-5. Click **uploading an existing file**.
-6. Drag everything inside the extracted ShieldOS folder into GitHub.
-7. Confirm `.github/workflows/build-iso.yml` is at the repository root.
-8. Commit the upload.
+Create an empty GitHub repository named `ShieldOS`.
 
-## Run the workflow
+Do not add a README, license or `.gitignore` on GitHub if you are uploading this package, because those files are already included.
 
-1. Open the **Actions** tab.
-2. Select **Build ShieldOS VM ISO**.
-3. Click **Run workflow**.
-4. Select the `main` branch.
-5. Click **Run workflow** again.
+## 2. Upload the files
 
-The workflow uses `workflow_dispatch`, so it can be started manually from the Actions tab.
+Upload the contents of this folder to the repository root.
 
-## Download the ISO
-
-After the workflow finishes:
-
-1. Open the completed workflow run.
-2. Scroll to **Artifacts**.
-3. Download `ShieldOS-VM-ISO`.
-4. Extract the downloaded artifact zip.
-5. Boot the `.iso` file in your VM.
-
-## Troubleshooting
-
-### The Actions tab does not show the workflow
-
-Check that this file exists exactly here:
+The root should contain:
 
 ```text
 .github/workflows/build-iso.yml
+flake.nix
+hosts/
+modules/
+apps/
+assets/
+docs/
+scripts/
+README.md
 ```
 
-If it is here instead, it is wrong:
+On macOS, press `Command + Shift + .` in Finder so the hidden `.github` folder is visible.
+
+## 3. Run the workflow
+
+Go to:
 
 ```text
-ShieldOS/.github/workflows/build-iso.yml
+Actions → Build ShieldOS Daily Driver VM ISO → Run workflow
 ```
 
-Move all project files to the repository root.
+## 4. Download the ISO
 
-### The workflow fails during package evaluation
+When the workflow finishes, open the run and download:
 
-Open the failed workflow run, expand the red step, and copy the error. Usually this means a package name changed in NixOS. Remove or replace that package in the relevant module.
+```text
+ShieldOS-Daily-Driver-VM-ISO
+```
 
-### The ISO artifact is missing
+Unzip the artifact and boot the `.iso` in your VM.
 
-The workflow is configured with `if-no-files-found: error`, so if there is no ISO file, the workflow should fail instead of silently uploading nothing.
+## 5. Install inside the VM
+
+Boot the ISO, open Konsole and run:
+
+```bash
+lsblk -dpno NAME,SIZE,MODEL,TYPE
+sudo shield-install-vm --root /dev/vda2 --efi /dev/vda1
+```
+
+Use the disk name shown by `lsblk`. In VirtualBox it may be `/dev/sda`.

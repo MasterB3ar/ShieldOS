@@ -1,13 +1,11 @@
 { config, lib, pkgs, ... }:
 
-let
-  optionalPkg = name: lib.optional (builtins.hasAttr name pkgs) (builtins.getAttr name pkgs);
-in {
+{
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  # Keep the desktop familiar and low-friction.
+  # Familiar Windows-like desktop base: taskbar, launcher, tray, file manager and app store.
   programs.kdeconnect.enable = true;
   programs.firefox.enable = true;
 
@@ -33,9 +31,11 @@ in {
     kdePackages.filelight
     kdePackages.plasma-browser-integration
     kdePackages.kcalc
+    kdePackages.discover
+    kdePackages.flatpak-kcm
     libreoffice-qt6-fresh
     vlc
-  ] ++ optionalPkg "mission-center";
+  ];
 
   xdg.portal = {
     enable = true;

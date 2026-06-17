@@ -1,5 +1,5 @@
 {
-  description = "ShieldOS Developer Preview - easy, private, polished desktop OS based on NixOS";
+  description = "ShieldOS 0.2 Daily Driver VM - easy, private, app-compatible desktop OS based on NixOS";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";

@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  optionalPkg = name: lib.optional (builtins.hasAttr name pkgs) (builtins.getAttr name pkgs);
-
   privacyReport = pkgs.writeShellApplication {
     name = "shield-privacy-report";
     runtimeInputs = with pkgs; [ coreutils systemd iproute2 procps gnugrep gawk ];
@@ -107,6 +105,8 @@ in {
     enableSSHSupport = true;
   };
 
+  # Keep this list explicit. Do not use dynamic package-name lookups here,
+  # because nixpkgs removed aliases can throw during evaluation and break ISO builds.
   environment.systemPackages = with pkgs; [
     privacyReport
     privateMode
@@ -114,9 +114,5 @@ in {
     flatpak
     bubblewrap
     apparmor-bin-utils
-  ]
-  ++ optionalPkg "veracrypt"
-  ++ optionalPkg "tor-browser"
-  ++ optionalPkg "tor-browser-bundle-bin"
-  ++ optionalPkg "onionshare-gui";
+  ];
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Shield Center
-A small first-party control panel for the ShieldOS Developer Preview.
+A small first-party control panel for the ShieldOS Daily Driver VM.
 It is intentionally simple: no cloud account, no telemetry, no hidden network calls.
 """
 
