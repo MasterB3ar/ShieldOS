@@ -34,7 +34,7 @@ jobs:
       - name: Preflight removed package alias check
         run: |
           set -euo pipefail
-          if grep -R --include='*.nix' -nE 'python3Full|python311Full|tor-browser-bundle-bin|noto-fonts-emoji|noto-fonts-extra|wineWowPackages|services\.resolved\.extraConfig|isoImage\.isoName' .; then
+          if grep -R --include='*.nix' -nE 'python3Full|python311Full|tor-browser-bundle-bin|noto-fonts-emoji|noto-fonts-extra|wineWowPackages|services\.resolved\.extraConfig|isoImage\.isoName|python3Packages\.tkinter' .; then
             echo "Found removed/deprecated NixOS package or option in .nix files. Replace it before building." >&2
             exit 1
           fi
