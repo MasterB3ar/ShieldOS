@@ -17,8 +17,6 @@
     noto-fonts-color-emoji
   ];
 
-  environment.etc."shieldos/wallpapers/shieldos-wallpaper.svg".source = ../assets/shieldos-wallpaper.svg;
-
   environment.systemPackages = with pkgs; [
     papirus-icon-theme
     kdePackages.dolphin
@@ -32,6 +30,9 @@
     kdePackages.plasma-browser-integration
     kdePackages.kcalc
     kdePackages.discover
+    kdePackages.systemsettings
+    kdePackages.plasma-workspace
+    kdePackages.qttools
     kdePackages.flatpak-kcm
     libreoffice-qt6-fresh
     vlc
