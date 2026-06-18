@@ -1,4 +1,4 @@
-name: Build ShieldOS Daily Driver VM ISO
+name: Build ShieldOS 0.3 UI Identity VM ISO
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   build-iso:
-    name: Build bootable daily-driver ISO
+    name: Build bootable ShieldOS 0.3 ISO
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -34,7 +34,7 @@ jobs:
       - name: Preflight removed package alias check
         run: |
           set -euo pipefail
-          if grep -R --include='*.nix' -nE 'python3Full|python311Full|tor-browser-bundle-bin|noto-fonts-emoji|wineWowPackages|services\.resolved\.extraConfig|isoImage\.isoName' .; then
+          if grep -R --include='*.nix' -nE 'python3Full|python311Full|tor-browser-bundle-bin|noto-fonts-emoji|noto-fonts-extra|wineWowPackages|services\.resolved\.extraConfig|isoImage\.isoName' .; then
             echo "Found removed/deprecated NixOS package or option in .nix files. Replace it before building." >&2
             exit 1
           fi
@@ -52,7 +52,7 @@ jobs:
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ShieldOS-Daily-Driver-VM-ISO
+          name: ShieldOS-0.3-UI-Identity-VM-ISO
           path: dist/*.iso
           if-no-files-found: error
           retention-days: 14
