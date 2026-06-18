@@ -168,7 +168,7 @@ let
         # App compatibility
         flatpak
         appimage-run
-        wineWowPackages.stable
+        wineWow64Packages.stable
         winetricks
 
         # Privacy and security

@@ -38,7 +38,9 @@
   services.displayManager.autoLogin.user = "shield";
 
   # Helpful on the live ISO.
-  services.getty.autologinUser = "shield";
+  # The imported NixOS installation ISO profile sets this to "nixos".
+  # Force ShieldOS to use its own live user instead of conflicting at evaluation time.
+  services.getty.autologinUser = lib.mkForce "shield";
   security.sudo.wheelNeedsPassword = false;
 
   # Safer VM behaviour.
