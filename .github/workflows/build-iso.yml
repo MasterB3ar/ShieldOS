@@ -1,4 +1,4 @@
-name: Build ShieldOS 0.3 UI Identity VM ISO
+name: Build ShieldOS 0.3.2 UI Identity VM ISO
 
 on:
   workflow_dispatch:
@@ -15,6 +15,14 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
+
+      - name: Stage files for Nix flake source
+        run: |
+          set -euo pipefail
+          # Nix flakes built from git only see tracked/staged files.
+          # This protects manual GitHub uploads where new assets exist but are not in the flake source yet.
+          git add -A
+          git status --short
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -39,6 +47,17 @@ jobs:
             exit 1
           fi
 
+      - name: Check ShieldOS source files
+        run: |
+          set -euo pipefail
+          test -f modules/identity.nix
+          test -f apps/shield-center/shield_apps.py
+          test -f modules/shield-center.nix
+          if grep -R --include='*.nix' -n '../assets/identity' modules hosts; then
+            echo "External identity asset paths are not allowed in .nix files for this build." >&2
+            exit 1
+          fi
+
       - name: Check flake syntax
         run: nix flake check --show-trace -L
 
@@ -52,7 +71,7 @@ jobs:
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ShieldOS-0.3-UI-Identity-VM-ISO
+          name: ShieldOS-0.3.2-UI-Identity-VM-ISO
           path: dist/*.iso
           if-no-files-found: error
           retention-days: 14
