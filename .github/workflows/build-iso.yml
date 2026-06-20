@@ -1,4 +1,4 @@
-name: Build ShieldOS 0.3.2 UI Identity VM ISO
+name: Build ShieldOS 0.3.3 UI Identity VM ISO
 
 on:
   workflow_dispatch:
@@ -71,7 +71,7 @@ jobs:
       - name: Upload ISO artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ShieldOS-0.3.2-UI-Identity-VM-ISO
+          name: ShieldOS-0.3.3-UI-Identity-VM-ISO
           path: dist/*.iso
           if-no-files-found: error
           retention-days: 14
