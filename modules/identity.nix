@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  # ShieldOS 0.3.2 identity package.
+  # ShieldOS 0.3.3 identity package.
   # Important: this file intentionally generates its own SVG assets inline.
   # That prevents Nix flakes from failing when assets are uploaded but not tracked
   # by git, which caused: Path 'assets/identity/shieldos-wallpaper.svg' does not exist.
   shieldosIdentity = pkgs.stdenvNoCC.mkDerivation {
-    name = "shieldos-identity-0.3.2";
+    name = "shieldos-identity-0.3.3";
     dontUnpack = true;
     installPhase = ''
       set -eu
@@ -340,7 +340,7 @@ in {
 
   environment.sessionVariables = {
     SHIELDOS_BRAND = "ShieldOS";
-    SHIELDOS_VERSION = "0.3.2 Real UI Build";
+    SHIELDOS_VERSION = "0.3.3 Real UI Build";
     KDE_COLOR_SCHEME = "ShieldOSDark";
   };
 
@@ -373,12 +373,12 @@ in {
   '';
 
   environment.etc."issue".text = ''
-    ShieldOS 0.3.2 Real UI Build
+    ShieldOS 0.3.3 Real UI Build
     Private. Clean. Familiar.
   '';
 
   environment.etc."motd".text = ''
-    ShieldOS 0.3.2 Real UI Build
-    Commands: shield-center, shield-privacy, shield-store, shield-updates, shield-vault, shield-welcome, shield-apply-identity
+    ShieldOS 0.3.3 Real UI Build
+    Commands: shield-center, shield-privacy, shield-store, shield-updates, shield-vault, shield-welcome, shield-apply-identity, shield-steam
   '';
 }

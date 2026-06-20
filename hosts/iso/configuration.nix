@@ -19,10 +19,10 @@
 
   networking.hostName = "shieldos";
 
-  image.fileName = "ShieldOS-0.3.2-Real-UI-VM-x86_64.iso";
+  image.fileName = "ShieldOS-0.3.3-Real-UI-VM-x86_64.iso";
   isoImage.volumeID = "SHIELDOS";
   isoImage.squashfsCompression = "zstd -Xcompression-level 6";
-  isoImage.appendToMenuLabel = " ShieldOS 0.3.2 Real UI VM";
+  isoImage.appendToMenuLabel = " ShieldOS 0.3.3 Real UI VM";
 
   # Avoid the NixOS 26.05 ZFS safety warning and future-default mismatch.
   boot.zfs.forceImportRoot = false;
@@ -52,7 +52,7 @@
 
   environment.etc."shieldos-release".text = ''
     NAME=ShieldOS
-    VERSION="0.3.2 Real UI Build"
+    VERSION="0.3.3 Real UI Build"
     BASE="NixOS 26.05"
     PRIVACY_DEFAULT="normal-private"
     IDENTITY="shieldos-dark-aurora"

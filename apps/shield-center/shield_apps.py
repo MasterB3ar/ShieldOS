@@ -19,6 +19,47 @@ MUTED = "#94a3b8"
 GREEN = "#4ade80"
 YELLOW = "#facc15"
 RED = "#f87171"
+
+class ShieldButton(tk.Button):
+    """A flat ShieldOS button.
+
+    ttk buttons can fall back to the platform theme while pressed/focused, which made
+    Shield apps flash into the wrong light/boxed style. This custom Tk button keeps
+    the same dark/cyan design for normal, hover and pressed states.
+    """
+    def __init__(self, master=None, **kwargs):
+        command = kwargs.pop("command", None)
+        text = kwargs.pop("text", "")
+        super().__init__(
+            master,
+            text=text,
+            command=command,
+            bg="#1d4ed8",
+            fg="#ffffff",
+            activebackground="#22d3ee",
+            activeforeground="#07111d",
+            disabledforeground="#64748b",
+            relief="flat",
+            bd=0,
+            highlightthickness=0,
+            padx=14,
+            pady=8,
+            cursor="hand2",
+            font=("Inter", 10, "bold"),
+            **kwargs,
+        )
+        self._normal_bg = "#1d4ed8"
+        self._hover_bg = "#2563eb"
+        self._press_bg = "#22d3ee"
+        self.bind("<Enter>", lambda _event: self.configure(bg=self._hover_bg, fg="#ffffff"))
+        self.bind("<Leave>", lambda _event: self.configure(bg=self._normal_bg, fg="#ffffff"))
+        self.bind("<ButtonPress-1>", lambda _event: self.configure(bg=self._press_bg, fg="#07111d"))
+        self.bind("<ButtonRelease-1>", lambda _event: self.configure(bg=self._hover_bg, fg="#ffffff"))
+
+
+# Use ShieldOS buttons everywhere existing app code calls ttk.Button.
+ttk.Button = ShieldButton
+
 STATE_DIR = Path.home() / ".local" / "state" / "shieldos"
 PRIVATE_FILE = STATE_DIR / "private-mode-on"
 VAULT_DIR = Path.home() / "ShieldVault"
@@ -162,7 +203,7 @@ class StoreApp(ShieldWindow):
         ttk.Label(main, text="Open Discover/Flathub for the real install flow, or use the quick app helper.", style="Subtitle.TLabel").pack(anchor="w", pady=(0, 14))
         grid = ttk.Frame(main, style="Shell.TFrame")
         grid.pack(fill="x")
-        apps = [("Shield Browser", "Private & Secure", "firefox"), ("Discord", "Communication", "flatpak"), ("Steam", "Gaming", "steam"), ("VSCodium", "Development", "vscodium"), ("VLC", "Media Player", "vlc"), ("Bottles", "Windows apps", "flatpak")]
+        apps = [("Shield Browser", "Private & Secure", "firefox"), ("Discord", "Communication", "flatpak"), ("Steam", "Gaming", "shield-steam"), ("VSCodium", "Development", "vscodium"), ("VLC", "Media Player", "vlc"), ("Bottles", "Windows apps", "flatpak")]
         for idx, (name, desc, cmd) in enumerate(apps):
             c = card(grid)
             c.grid(row=idx//3, column=idx%3, sticky="nsew", padx=6, pady=6)

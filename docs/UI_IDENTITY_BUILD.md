@@ -1,4 +1,4 @@
-# ShieldOS 0.3.1 Real UI Build
+# ShieldOS 0.3.3 Real UI Build
 
 This build fixes the earlier partial identity layer. The ShieldOS apps are packaged as real separate launchers and the KDE session applies ShieldOS visual defaults automatically.
 
@@ -24,3 +24,10 @@ shield-apply-identity
 ## Reality note
 
 This is still KDE/Plasma underneath, but it now applies a ShieldOS identity layer at login so it should no longer feel like untouched stock NixOS.
+
+
+## 0.3.3 fixes
+
+- Replaced fragile platform-styled Shield app buttons with consistent ShieldOS buttons.
+- Added `shield-steam`, a Steam launcher wrapper that writes logs to `~/.local/state/shieldos/steam.log`.
+- Enabled 32-bit graphics support for Steam/Proton.

@@ -38,7 +38,7 @@
 
   environment.etc."shieldos-release".text = ''
     NAME=ShieldOS
-    VERSION="0.3.2 Real UI Build"
+    VERSION="0.3.3 Real UI Build"
     BASE="NixOS 26.05"
     PRIVACY_DEFAULT="normal-private"
     IDENTITY="shieldos-dark-aurora"
